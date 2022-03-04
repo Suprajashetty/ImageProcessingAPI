@@ -15,20 +15,20 @@ it('Test wrong endpoint', async () => {
 });
 
 describe('Test Image processing scenarios', () => {
-    it('Test input file found or not', async () => {
-  const response = await request.get('/resize?fileName=abc&width=20&height=20');
-  expect(response.text).toEqual('Input file not found');
-});
+  it('Test input file found or not', async () => {
+    const response = await request.get(
+      '/resize?fileName=abc&width=20&height=20'
+    );
+    expect(response.text).toEqual('Input file not found');
+  });
 
-it('Test values of height and width should be non negative and non zero', async () => {
-  const response = await request.get(
-    '/resize?fileName=smile.jpg&width=-20&height=-20'
-  );
-  expect(response.text).toContain('Values for height and width should be greater than 0');
-});
+  it('Test values of height and width should be non negative and non zero', async () => {
+    const response = await request.get(
+      '/resize?fileName=smile.jpg&width=-20&height=-20'
+    );
+    expect(response.text).toContain(
+      'Values for height and width should be greater than 0'
+    );
+  });
 
-it('Test output file found or not', async () => {
-  const response = await request.get('/resize?fileName=smile.jpg&width=400&height=400');
-  expect(response.text).toEqual('Output file not found');
-});
-});
+  });

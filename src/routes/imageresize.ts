@@ -10,7 +10,9 @@ const resizeImg = async (
 ): Promise<void> => {
   const fileName = `${req.query.fileName}`;
   const inputImg = `${filepath}\\full\\${fileName}`;
-  const outputImg = `${filepath}\\thumb\\${path.parse(fileName).name}_${req.query.width}_${req.query.height}${path.parse(fileName).ext}`;
+  const outputImg = `${filepath}\\thumb\\${path.parse(fileName).name}_${
+    req.query.width
+  }_${req.query.height}${path.parse(fileName).ext}`;
   const width: number = parseInt(req.query.width as unknown as string);
   const height: number = parseInt(req.query.height as unknown as string);
 
@@ -20,11 +22,8 @@ const resizeImg = async (
     res.sendFile(outputImg);
     console.log('Resizing image...');
   } catch (error) {
-    
-      console.log(error);
-    }
+    console.log(error);
+  }
 };
 
 export default resizeImg;
-
-

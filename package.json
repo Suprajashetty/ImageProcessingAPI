@@ -22,18 +22,18 @@
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jasmine": "^4.0.2",
+    "jasmine-spec-reporter": "^7.0.0",
     "prettier": "^2.5.1",
+    "supertest": "^6.2.2",
     "ts-node": "^10.6.0",
     "typescript": "^4.6.2"
   },
   "dependencies": {
     "@types/sharp": "^0.29.5",
     "express": "^4.17.3",
-    "jasmine": "^4.0.2",
-    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.15",
-    "sharp": "^0.30.1",
-    "supertest": "^6.2.2"
+    "sharp": "^0.30.1"
   },
   "description": ""
 }

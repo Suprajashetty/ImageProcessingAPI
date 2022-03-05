@@ -43,7 +43,7 @@ var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
 var request = (0, supertest_1.default)(index_1.default);
 describe('Test endpoint responses', function () {
-    it('gets the resize endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('Gets the resize endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -89,18 +89,6 @@ describe('Test Image processing scenarios', function () {
                 case 1:
                     response = _a.sent();
                     expect(response.text).toContain('Values for height and width should be greater than 0');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('Test output file found or not', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/resize?fileName=smile.jpg&width=400&height=400')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.text).toEqual('Output file not found');
                     return [2 /*return*/];
             }
         });

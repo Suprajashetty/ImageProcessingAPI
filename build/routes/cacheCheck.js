@@ -39,11 +39,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//import sharp from 'sharp';
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var filepath = path_1.default.resolve(__dirname, '../../images');
-//To Add caching
+//To Add caching logic
 var cacheImg = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var fileName, outputImg, inputImg, width, height;
     return __generator(this, function (_a) {
@@ -52,17 +51,15 @@ var cacheImg = function (req, res, next) { return __awaiter(void 0, void 0, void
         inputImg = "".concat(filepath, "\\full\\").concat(fileName);
         width = parseInt("".concat(req.query.width));
         height = parseInt("".concat(req.query.height));
+        //send response when any errors found
         if (!fs_1.default.existsSync(inputImg)) {
             res.send('Input file not found');
         }
         else if (width <= 0 || height <= 0) {
-            res.send("Values for height and width should be greater than 0");
+            res.send('Values for height and width should be greater than 0');
         }
         else if (!width || !height) {
-            res.send("Values for height and/or width is missing. Please enter the values");
-        }
-        else if (!fs_1.default.existsSync(outputImg)) {
-            res.send('Output file not found');
+            res.send('Values for height and/or width is missing. Please enter the values');
         }
         else if (fs_1.default.existsSync(outputImg)) {
             res.sendFile(outputImg);

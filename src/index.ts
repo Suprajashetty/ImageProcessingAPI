@@ -8,7 +8,7 @@ const port = 3000;
 app.use('/resize', cacheImg, resizeImg);
 
 app.listen(port, () => {
-  console.log(`Server is running http://localhost:${port}`);
+    console.log(`Server is running http://localhost:${port}`);
 });
 
 export default app;

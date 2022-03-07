@@ -39,9 +39,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var path_1 = __importDefault(require("path"));
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
+var imageresize_1 = __importDefault(require("../routes/imageresize"));
 var request = (0, supertest_1.default)(index_1.default);
+var filepath = path_1.default.resolve(__dirname, '../../images');
 describe('Test endpoint responses', function () {
     it('Gets the resize endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
@@ -94,3 +97,19 @@ describe('Test Image processing scenarios', function () {
         });
     }); });
 });
+// test image processing function in isolation without sending a request to server.
+it('Image processing test', function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        expect(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, imageresize_1.default)("images\\full\\smile.jpg", 200, 200, "images\\thumb\\smile_200_200.jpg")];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); }).not.toThrow();
+        return [2 /*return*/];
+    });
+}); });

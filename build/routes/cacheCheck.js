@@ -41,34 +41,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
+var imageresize_1 = __importDefault(require("./imageresize"));
 var filepath = path_1.default.resolve(__dirname, '../../images');
 //To Add caching logic
 var cacheImg = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var fileName, outputImg, inputImg, width, height;
+    var fileName, outputFilePath, inputFilePath, width, height;
     return __generator(this, function (_a) {
-        fileName = "".concat(req.query.fileName);
-        outputImg = "".concat(filepath, "\\thumb\\").concat(path_1.default.parse(fileName).name, "_").concat(req.query.width, "_").concat(req.query.height).concat(path_1.default.parse(fileName).ext);
-        inputImg = "".concat(filepath, "\\full\\").concat(fileName);
-        width = parseInt("".concat(req.query.width));
-        height = parseInt("".concat(req.query.height));
-        //send response when any errors found
-        if (!fs_1.default.existsSync(inputImg)) {
-            res.send('Input file not found');
+        switch (_a.label) {
+            case 0:
+                fileName = "".concat(req.query.fileName);
+                outputFilePath = "".concat(filepath, "\\thumb\\").concat(path_1.default.parse(fileName).name, "_").concat(req.query.width, "_").concat(req.query.height).concat(path_1.default.parse(fileName).ext);
+                inputFilePath = "".concat(filepath, "\\full\\").concat(fileName);
+                width = parseInt("".concat(req.query.width));
+                height = parseInt("".concat(req.query.height));
+                if (!!fs_1.default.existsSync(inputFilePath)) return [3 /*break*/, 1];
+                res.send('Input file not found');
+                return [3 /*break*/, 6];
+            case 1:
+                if (!(width <= 0 || height <= 0)) return [3 /*break*/, 2];
+                res.send('Values for height and width should be greater than 0');
+                return [3 /*break*/, 6];
+            case 2:
+                if (!(!width || !height)) return [3 /*break*/, 3];
+                res.send('Values for height and/or width is missing. Please enter the values');
+                return [3 /*break*/, 6];
+            case 3:
+                if (!fs_1.default.existsSync(outputFilePath)) return [3 /*break*/, 4];
+                res.sendFile(outputFilePath);
+                console.log("cache...");
+                return [3 /*break*/, 6];
+            case 4: return [4 /*yield*/, (0, imageresize_1.default)(inputFilePath, width, height, outputFilePath)];
+            case 5:
+                _a.sent();
+                res.sendFile(outputFilePath);
+                console.log("resize...");
+                _a.label = 6;
+            case 6: return [2 /*return*/];
         }
-        else if (width <= 0 || height <= 0) {
-            res.send('Values for height and width should be greater than 0');
-        }
-        else if (!width || !height) {
-            res.send('Values for height and/or width is missing. Please enter the values');
-        }
-        else if (fs_1.default.existsSync(outputImg)) {
-            res.sendFile(outputImg);
-            console.log('Caching image');
-        }
-        else {
-            next();
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.default = cacheImg;

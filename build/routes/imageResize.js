@@ -42,30 +42,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
 var filepath = path_1.default.resolve(__dirname, '../../images');
-var resizeImg = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var fileName, inputImg, outputImg, width, height, error_1;
+var resizeImg = function (inputFilePath, width, height, outputFilePath) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                fileName = "".concat(req.query.fileName);
-                inputImg = "".concat(filepath, "\\full\\").concat(fileName);
-                outputImg = "".concat(filepath, "\\thumb\\").concat(path_1.default.parse(fileName).name, "_").concat(req.query.width, "_").concat(req.query.height).concat(path_1.default.parse(fileName).ext);
-                width = parseInt(req.query.width);
-                height = parseInt(req.query.height);
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, (0, sharp_1.default)(inputFilePath).resize({ width: width, height: height }).toFile(outputFilePath)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, sharp_1.default)(inputImg).resize({ width: width, height: height }).toFile(outputImg)];
-            case 2:
                 _a.sent();
-                res.sendFile(outputImg);
-                console.log('Resizing image...');
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 error_1 = _a.sent();
-                console.log(error_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                throw (error_1);
+            case 3: return [2 /*return*/];
         }
     });
 }); };
